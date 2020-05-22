@@ -72,7 +72,6 @@ class UI {
                 event.target.disabled = true;
                 //get product from products 
                 let cartItem = {...Storage.getProduct(id), amount: 1 };
-                console.log(cartItem);
                 //add product to the cart
                 cart = [...cart, cartItem];
                 //save cart in local storage
@@ -82,7 +81,7 @@ class UI {
                 //display cart item
                 this.addCartItem(cartItem);
                 //show the cart
-
+                this.showCart();
             });
 
         });
@@ -100,7 +99,7 @@ class UI {
     addCartItem(item) {
         const div = document.createElement('div');
         div.classList.add('cart-item');
-        div.innerHTML = `  <img src=${item.image} alt="product">
+        div.innerHTML = `<img src=${item.image} alt="product" />
         <div>
             <h4>${item.title}</h4>
             <h5>$${item.price}</h5>
@@ -112,7 +111,10 @@ class UI {
             <i class="fas fa-chevron-down" data-id=${item.id}></i>
         </div>`;
         cartContent.appendChild(div);
-        console.log(cartContent);
+    }
+    showCart() {
+        cartOverlay.classList.add('transparentBcg');
+        cartDOM.classList.add('showCart');
 
     }
 }
