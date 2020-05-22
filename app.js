@@ -79,18 +79,14 @@ class UI {
                 Storage.saveCart(cart);
                 //set cart values 
                 this.setCartValues(cart);
-                //add cart item
-
                 //display cart item
-
+                this.addCartItem(cartItem);
                 //show the cart
 
             });
 
         });
     }
-
-
     setCartValues(cart) {
         let tempTotal = 0;
         let itemsTotal = 0;
@@ -100,7 +96,24 @@ class UI {
         })
         cartTotal.innerText = parseFloat(tempTotal.toFixed(2))
         cartItems.innerText = itemsTotal;
-        console.log(cartTotal, cartItems)
+    }
+    addCartItem(item) {
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `  <img src=${item.image} alt="product">
+        <div>
+            <h4>${item.title}</h4>
+            <h5>$${item.price}</h5>
+            <span class="remove-item" data-id=${item.id}>remove</span>
+        </div>
+        <div>
+            <i class="fas fa-chevron-up" data-id=${item.id}></i>
+            <p class="item-amount">${item.amount}</p>
+            <i class="fas fa-chevron-down" data-id=${item.id}></i>
+        </div>`;
+        cartContent.appendChild(div);
+        console.log(cartContent);
+
     }
 }
 
