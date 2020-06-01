@@ -111,6 +111,7 @@ class UI {
             <i class="fas fa-chevron-down" data-id=${item.id}></i>
         </div>`;
         cartContent.appendChild(div);
+        console.log(cartContent);
     }
     showCart() {
         cartOverlay.classList.add('transparentBcg');
