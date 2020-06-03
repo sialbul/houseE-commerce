@@ -132,14 +132,44 @@ class UI {
         cartDOM.classList.remove('showCart');
     }
     cartLogic() {
+        //clear cart button
         clearCartBtn.addEventListener('click', () => {
             this.clearCart();
         });
+        // cart functionality
+        cartContent.addEventListener('click', event => {
+            if (event.target.classList.contains('remove-item')) {
+                let removeItem = event.target;
+                let id = removeItem.dataset.id;
+                cartContent.removeChild(removeItem.parentElement.parentElement);
+                this.removeItem(id);
+
+            } else if (event.target.classList.contains('fa-chevron-up')) {
+                let addAmount = event.target;
+                let id = addAmount.dataset.id;
+                let tempItem = cart.find(item => item.id === id)
+            }
+        })
     }
 
     clearCart() {
-        console.log(this);
-
+        let cartItems = cart.map(item => item.id);
+        cartItems.forEach(id => this.removeItem(id));
+        while (cartContent.children.length > 0) {
+            cartContent.removeChild(cartContent.children[0]);
+        }
+        this.hideCart();
+    }
+    removeItem(id) {
+        cart = cart.filter(item => item.id !== id);
+        this.setCartValues(cart);
+        Storage.saveCart(cart);
+        let button = this.getSingleButton(id);
+        button.disabled = false;
+        button.innerHTML = `<i class="fas fa-shopping-cart"></i>add to cart`;
+    }
+    getSingleButton(id) {
+        return buttonsDOM.find(button => button.dataset.id === id);
     }
 }
 
